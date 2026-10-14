@@ -13,3 +13,9 @@ data = pd.get_dummies(data, columns=["sex","embarked"], dtype=int)
 
 print(data.head())                                     
 print("Any blanks left?", data.isnull().values.any())
+
+new = pd.DataFrame([{"pclass":2,"sex":"female","age":27,"fare":30,"embarked":"C"}])  # one new passenger
+new = pd.get_dummies(new, columns=["sex","embarked"], dtype=int)     # clean it the same way
+new = new.reindex(columns=data.drop("survived", axis=1).columns, fill_value=0)  # match the columns
+print(new)
+
